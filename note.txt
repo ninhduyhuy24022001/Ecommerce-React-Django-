@@ -1,0 +1,12 @@
+# extention: ES7
+
+# Starting the frontend
+    - bootstrap css
+    - bootstrap package
+
+# Serving & Fetching Data from Django
+    - userEffect, userState (react)
+        + create proxy
+    - restapi (django)
+
+#  Implement Redux for State Management
