@@ -4,5 +4,6 @@ from base.views import order_views as views
 
 
 urlpatterns = [
-    path('add/', views.addOrderItems, name='add-order-items')
+    path('add/', views.addOrderItems, name='add-order-items'),
+    path('<str:pk>/', views.getOrderById, name='get-order-by-id')
 ]
