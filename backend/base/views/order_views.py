@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
@@ -8,6 +9,7 @@ from base.serializers import OrderSerializer
 from base.models import Product, Order, OrderItem, ShippingAddress
 
 from rest_framework import status
+from datetime import datetime
 
 
 @api_view(['POST'])
@@ -63,6 +65,15 @@ def addOrderItems(request):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
+def getMyOrders(request):
+    user = request.user
+    orders = user.order_set.all()
+    serializer = OrderSerializer(orders, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def getOrderById(request, pk):
 
     user = request.user
@@ -78,3 +89,18 @@ def getOrderById(request, pk):
     except:
         message = {'detail': 'Order does not exists'}
         return Response(message, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateOrderToPaid(request, pk):
+    try:
+        order = Order.objects.get(_id=pk)
+
+        order.isPaid = True
+        order.paidAt = datetime.now()
+        order.save()
+
+        return Response({"message": "Order was Paid"})
+    except Order.DoesNotExist:
+        return Response({"error": "Order not found"}, status=404)
