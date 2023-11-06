@@ -14,3 +14,5 @@
 #  Implement Redux for State Management
 
 # orderScreens - OrderSerializer - paypal sandbox
+    => paypal developer && paypal sandbox for payment
+    =>

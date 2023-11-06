@@ -102,3 +102,42 @@ def getUsers(request):
     serializer = UserSerializer(user, many=True)
 
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAdminUser])
+def getUserById(request, pk):
+    user = User.objects.get(id=pk)
+    serializer = UserSerializer(user, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['PUT'])
+@permission_classes([IsAdminUser])
+def updateUser(request, pk):
+    user = User.objects.get(id=pk)
+    serializer = UserSerializer(user, many=False)
+
+    data = request.data
+
+    user.first_name = data['name']
+    user.username = data['email']
+    user.email = data['email']
+    user.is_staff = data['isAdmin']
+
+    user.save()
+
+    return Response(serializer.data)
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAdminUser])
+def deleteUser(request, pk):
+
+    try:
+        userForDelete = User.objects.get(id=pk)
+        userForDelete.delete()
+
+        return Response({"message": "Order was Paid"})
+    except:
+        return Response({"error": "Order not found"}, status=404)
