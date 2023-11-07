@@ -7,7 +7,7 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 import FormContainer from "../components/FormContainer";
 
-import { listProductsDetails, updateProduct } from "../actions/productAction";
+import { listProductDetails, updateProduct } from "../actions/productAction";
 import { PRODUCT_UPDATE_RESET } from "../constants/productConstants";
 import axios from "axios";
 
@@ -38,7 +38,7 @@ function ProductEditScreen() {
 			navigate("/admin/productlist");
 		} else {
 			if (!product.name || product._id !== Number(productId)) {
-				dispatch(listProductsDetails(productId));
+				dispatch(listProductDetails(productId));
 			} else {
 				setName(product.name);
 				setPrice(product.price);

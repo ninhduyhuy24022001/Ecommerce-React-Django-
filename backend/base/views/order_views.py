@@ -104,3 +104,30 @@ def updateOrderToPaid(request, pk):
         return Response({"message": "Order was Paid"})
     except Order.DoesNotExist:
         return Response({"error": "Order not found"}, status=404)
+
+
+@api_view(['PUT'])
+@permission_classes([IsAdminUser])
+def updateOrderToDelivered(request, pk):
+    try:
+        order = Order.objects.get(_id=pk)
+
+        order.isDelivered = True
+        order.deliveredAt = datetime.now()
+        order.save()
+
+        return Response({"message": "Order was Delivered"})
+    except Order.DoesNotExist:
+        return Response({"error": "Order not found"}, status=404)
+
+
+@api_view(['GET'])
+@permission_classes([IsAdminUser])
+def getOrders(request):
+
+    user = request.user
+    orders = Order.objects.all()
+
+    serializer = OrderSerializer(orders, many=True)
+
+    return Response(serializer.data)

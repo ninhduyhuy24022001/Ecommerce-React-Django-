@@ -48,7 +48,7 @@ function RegisterScreen() {
 
 			<Form onSubmit={submitHandler} className="mb-3">
 				<Form.Group controlId="name">
-					<Form.Label>Email Address</Form.Label>
+					<Form.Label>Your Name</Form.Label>
 					<Form.Control
 						className="rounded"
 						required
