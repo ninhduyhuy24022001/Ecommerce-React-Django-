@@ -8,6 +8,8 @@ urlpatterns = [
     path('create/', views.createProduct, name='create-product'),
     path('upload/', views.uploadImage, name='upload-image'),
 
+    path('top/', views.getTopProducts, name='get-top-product'),
+
     path('<str:pk>/reviews/', views.createProductReview,
          name='create-product-review'),
     path('<str:pk>/', views.getProduct, name='product'),
