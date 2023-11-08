@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
 
 import { listProducts } from "../actions/productAction";
 import Product from "../components/Product";
@@ -9,14 +10,15 @@ import Message from "../components/Message";
 
 function HomeScreen() {
 	const dispatch = useDispatch();
+	const location = useLocation();
 	const productList = useSelector((state) => state.productList);
 	const { error, loading, products } = productList;
 
-	let keyword = window.location.search;
-
 	useEffect(() => {
+		const keyword = location.search;
+		console.log(keyword); // Log the updated keyword
 		dispatch(listProducts(keyword));
-	}, [dispatch, keyword]);
+	}, [dispatch, location.search]);
 
 	return (
 		<div>

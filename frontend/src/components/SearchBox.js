@@ -9,11 +9,10 @@ function SearchBox() {
 
 	const submitHandler = (e) => {
 		e.preventDefault();
-		// console.log(window.location);
 		if (keyword) {
 			navigate(`/?keyword=${keyword}`);
 		} else {
-			navigate(window.origin);
+			navigate("/");
 		}
 	};
 
