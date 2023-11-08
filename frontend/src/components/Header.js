@@ -4,6 +4,7 @@ import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useNavigate } from "react-router-dom";
 
+import SearchBox from "./SearchBox";
 import { logout } from "../actions/userAction";
 
 function Header(props) {
@@ -27,6 +28,7 @@ function Header(props) {
 					</LinkContainer>
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
 					<Navbar.Collapse id="basic-navbar-nav">
+						<SearchBox />
 						<Nav className="me-auto">
 							<LinkContainer to="/cart/">
 								<Nav.Link>
